@@ -16,7 +16,7 @@ class InviteRequest < ApplicationRecord
     end
   end
 
-  # Borrow the blacklist cleaner but just strip out all the periods for all domains
+  # Borrow the banned cleaner but just strip out all the periods for all domains
   def set_simplified_email
     return if email.blank?
     simplified = AdminBlacklistedEmail.canonical_email(email).split('@')

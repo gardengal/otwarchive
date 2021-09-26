@@ -1,0 +1,64 @@
+<div class="admin">
+  <!--Descriptive page name, messages and instructions-->
+  <%# TODO: does this i18n exist? %>
+  <h2 class="heading"><%= t("admin.admin_email_banned.index.page_heading", default: "Manage Banned Emails") %></h2>
+
+  <ul class="notes">
+    <li><%= ts("Banned email addresses cannot be used in guest comments.") %></li>
+    <li><%= ts("They will not affect users who share the same email address or prevent invitations from being sent to or used by those email addresses.") %></li>
+    <li><%= ts("All emails are stored in a single canonical format and common variants of the same address are not allowed (for instance, foo+whatever@bar.com will not be allowed if foo@bar.com is banned).") %></li>
+  </ul>
+  <!--/descriptions-->
+
+  <!--main content-->
+  <h3 class="heading"><%= ts("Ban email address") %></h3>
+
+  <%= form_for(@admin_banned_email, url: admin_banned_emails_path, html: { class: "simple post" }) do |f| %>
+    <%= error_messages_for @admin_banned_email %>
+    <fieldset>
+      <p>
+        <%= f.label :email, ts("Email to add") %>
+        <%= f.text_field :email %>
+        <%= f.submit ts("Add To Banned List") %>
+      </p>
+    </fieldset>
+  <% end %>
+
+  <h3 class="heading"><%= ts("Find banned emails")%></h3>
+
+  <!-- search form -->
+  <%= form_tag url_for(controller: "admin/banned_emails", action: "index"),
+               method: :get, class: "simple search", role: "search" do %>
+    <fieldset>
+      <p>
+        <%= label_tag "query", ts("Email to find") %>
+        <%= text_field_tag "query", params[:query] %>
+        <%= submit_tag ts("Search Banned List") %>
+      </p>
+    </fieldset>
+  <% end %>
+
+  <!-- list of search results -->
+  <% if @admin_banned_emails %>
+    <div class="results module">
+      <h3 class="heading">
+        <%= t("admin.banned.emails_found", count: @admin_banned_emails.count) %>
+      </h3>
+      <% if @admin_banned_emails.count > 0 %>
+        <ol class="emails index group">
+          <% @admin_banned_emails.each do |banned_email| %>
+          <li>
+            <%= link_to ts("Remove %{email}", email: banned_email.email),
+                        url: admin_banned_email_path(id: banned_email.id),
+                        method: :delete,
+                        data: { confirm: ts("Are you sure you want to remove %{email} from the banned list?",
+                                email: banned_email.email) } %>
+          </li>
+          <% end %>
+        </ul>
+        <%= will_paginate @admin_banned_emails %>
+      <% end %>
+    </div>
+  <% end %>
+  <!--/content-->
+</div>

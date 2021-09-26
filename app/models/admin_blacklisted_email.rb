@@ -28,8 +28,8 @@ class AdminBlacklistedEmail < ApplicationRecord
     return canonical_email
   end
 
-  # Check if an email is
-  def self.is_blacklisted?(email_to_check)
+  # Check if an email is banned
+  def self.is_banned?(email_to_check)
     AdminBlacklistedEmail.where(email: AdminBlacklistedEmail.canonical_email(email_to_check)).exists?
   end
 

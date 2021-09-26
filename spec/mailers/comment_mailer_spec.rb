@@ -143,7 +143,7 @@ describe CommentMailer do
     end
 
     context "when the comment is from a user using a banned email" do
-      before { create(:admin_blacklisted_email, email: parent_comment.comment_owner_email) }
+      before { create(:admin_banned_email, email: parent_comment.comment_owner_email) }
 
       # Don't consider banned emails for registered users.
       it_behaves_like "a notification email with a link to the comment"
@@ -152,7 +152,7 @@ describe CommentMailer do
     context "when the comment is from a guest using a banned email" do
       let(:parent_comment) { create(:comment, :by_guest) }
 
-      before { create(:admin_blacklisted_email, email: parent_comment.comment_owner_email) }
+      before { create(:admin_banned_email, email: parent_comment.comment_owner_email) }
 
       it_behaves_like "an unsent email"
     end
@@ -178,7 +178,7 @@ describe CommentMailer do
     end
 
     context "when the comment is from a user using a banned email" do
-      before { create(:admin_blacklisted_email, email: parent_comment.comment_owner_email) }
+      before { create(:admin_banned_email, email: parent_comment.comment_owner_email) }
 
       # Don't consider banned emails for registered users.
       it_behaves_like "a notification email with a link to the comment"
@@ -187,7 +187,7 @@ describe CommentMailer do
     context "when the comment is from a guest using a banned email" do
       let(:parent_comment) { create(:comment, :by_guest) }
 
-      before { create(:admin_blacklisted_email, email: parent_comment.comment_owner_email) }
+      before { create(:admin_banned_email, email: parent_comment.comment_owner_email) }
 
       it_behaves_like "an unsent email"
     end

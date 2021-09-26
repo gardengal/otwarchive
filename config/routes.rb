@@ -156,7 +156,7 @@ Otwarchive::Application.routes.draw do
         get :confirm_delete
       end
     end
-    resources :blacklisted_emails, only: [:index, :new, :create, :destroy]
+    resources :banned_emails, only: [:index, :new, :create, :destroy]
     resources :settings
     resources :skins do
       collection do

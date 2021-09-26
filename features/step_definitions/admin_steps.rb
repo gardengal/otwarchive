@@ -399,30 +399,30 @@ When(/^the user "(.*?)" is unbanned in the background/) do |user|
   u.update_attribute(:banned, false)
 end
 
-Given(/^I have blacklisted the address "([^"]*)"$/) do |email|
-  visit admin_blacklisted_emails_url
+Given(/^I have banned the address "([^"]*)"$/) do |email|
+  visit admin_banned_emails_url
   fill_in("Email", with: email)
-  click_button("Add To Blacklist")
+  click_button("Add To Banned List")
 end
 
-Given(/^I have blacklisted the address for user "([^"]*)"$/) do |user|
-  visit admin_blacklisted_emails_url
+Given(/^I have banned the address for user "([^"]*)"$/) do |user|
+  visit admin_banned_emails_url
   u = User.find_by(login: user)
-  fill_in("admin_blacklisted_email_email", with: u.email)
-  click_button("Add To Blacklist")
+  fill_in("admin_banned_email_email", with: u.email)
+  click_button("Add To Banned List")
 end
 
-Then(/^the address "([^"]*)" should be in the blacklist$/) do |email|
-  visit admin_blacklisted_emails_url
+Then(/^the address "([^"]*)" should be in the banned list$/) do |email|
+  visit admin_banned_emails_url
   fill_in("Email to find", with: email)
-  click_button("Search Blacklist")
+  click_button("Search Banned List")
   assert page.should have_content(email)
 end
 
-Then(/^the address "([^"]*)" should not be in the blacklist$/) do |email|
-  visit admin_blacklisted_emails_url
+Then(/^the address "([^"]*)" should not be in the banned list$/) do |email|
+  visit admin_banned_emails_url
   fill_in("Email to find", with: email)
-  click_button("Search Blacklist")
+  click_button("Search Banned List")
   step %{I should see "0 emails found"}
 end
 

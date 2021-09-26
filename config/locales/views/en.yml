@@ -23,7 +23,7 @@ en:
         external_work: "Make External Work Visible"
         series: "Make Series Visible"
         work: "Make Work Visible"
-    blacklist:
+    banned:
       emails_found:
         one: "one email found"
         other: "%{count} emails found"
