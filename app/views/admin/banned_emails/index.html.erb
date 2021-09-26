@@ -49,7 +49,7 @@
           <% @admin_banned_emails.each do |banned_email| %>
           <li>
             <%= link_to ts("Remove %{email}", email: banned_email.email),
-                        url: admin_banned_email_path(id: banned_email.id),
+                        admin_banned_email_path(id: banned_email.id),
                         method: :delete,
                         data: { confirm: ts("Are you sure you want to remove %{email} from the banned list?",
                                 email: banned_email.email) } %>
